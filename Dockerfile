@@ -68,6 +68,9 @@ RUN chown -R www-data:www-data /var/www/html && \
     touch $INVOICENEKO_DIRECTORY/storage/logs/laravel.log && \
     chmod 775 $INVOICENEKO_DIRECTORY/storage/logs/laravel.log
 
+# APT cleanup to reduce Docker image size
+RUN apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
+
 # Volume configuration
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/lib/mysql", "/var/www/html"]
 
